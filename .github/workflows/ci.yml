@@ -16,7 +16,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{env.JDK-version}}
+      - name: setup Gradle
+        uses: gradle/actions/setup-gradle@v3
       - name: compile
-        run: ./gradlew clean compileJava
+        run: ./gradlew clean build
       - name: test
-        run: ./gradlew clean test
+        run: ./gradlew test --info
