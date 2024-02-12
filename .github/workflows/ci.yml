@@ -16,12 +16,13 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: ${{env.JDK-version}}
-      - name: setup Gradle
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           cache-disabled: true
-      - name: compile
+      
+      - name: Compile java
         run: ./gradlew clean compileJava
-      - name: Test project
+      - name: Run tests
         run:
           ./gradlew clean test
