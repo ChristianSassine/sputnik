@@ -5,7 +5,7 @@ on:
   pull_request:
 
 env:
-  JDK-version: '8'
+  JDK-version: '15-ea'
 
 jobs:
   Tests:
@@ -14,11 +14,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: 'zulu'
           java-version: ${{env.JDK-version}}
       - name: setup Gradle
         uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-disabled: true
       - name: compile
-        run: ./gradlew clean build
-      - name: test
-        run: ./gradlew test --info
+        run: ./gradlew clean compileJava
+      - name: Test project
+        run:
+          ./gradlew clean test
