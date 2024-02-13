@@ -9,6 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -52,6 +54,27 @@ class ReviewTest {
         long totalViolationCount = review.getViolationCount(Severity.INFO);
 
         assertThat(totalViolationCount).isEqualTo(2);
+    }
+
+    @Test
+    public void shouldBePalindromes() {
+        assertTrue(review.getPalindromeStatus("radar"));
+        assertTrue(review.getPalindromeStatus("level"));
+        assertTrue(review.getPalindromeStatus("deified"));
+    }
+
+    @Test
+    public void shouldNotBePalindromes() {
+        assertFalse(review.getPalindromeStatus("hello"));
+        assertFalse(review.getPalindromeStatus("world"));
+        assertFalse(review.getPalindromeStatus("notapalindrome"));
+    }
+
+    @Test
+    public void edgeCasesPalindromes() {
+        assertTrue(review.getPalindromeStatus(""));
+        assertTrue(review.getPalindromeStatus("  "));
+        assertFalse(review.getPalindromeStatus(".,"));
     }
 
     private Comment mockComment() {

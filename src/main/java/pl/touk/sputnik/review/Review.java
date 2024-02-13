@@ -94,6 +94,23 @@ public class Review {
                 .count();
     }
 
+    public Boolean getPalindromeStatus(String word) {
+        word = word.toLowerCase();
+        int l = 0;
+        int r = word.length() - 1;
+        while (l < r) {
+
+            if (word.charAt(l) != word.charAt(r)){
+                return false;
+            }
+
+            l+=1;
+            r-=1;
+        }
+
+        return true;
+    }
+
     @NoArgsConstructor
     private static class ReviewFileSourceDirFunction implements Function<ReviewFile, String> {
 
